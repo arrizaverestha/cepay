@@ -4,16 +4,20 @@ html(lang='en')
     title authentication
     meta(charset='utf-8')
     meta(name='viewport', content='width=device-width, initial-scale=1')
+    meta(name='description', content='Cepay')
+    meta(name='theme-color', content='#ee6e73')
+    link(rel="manifest", href="../manifest.json")
+
     link(rel='stylesheet', href='/css/bootstrap.min.css')
     script(src='/js/jquery.min.js')
     script(src='/js/bootstrap.min.js')
   body
-  
+
     nav.navbar.navbar-inverse
      .container-fluid
        .navbar-header
          a.navbar-brand(href='#') Authentication
-       
+
        ul.nav.navbar-nav
          li(class=(title == 'Members Area' ? 'active' : ''))
            a(href='/') Members Area
@@ -21,10 +25,12 @@ html(lang='en')
            a(href='/users/register') Register
          li(class=(title == 'Login' ? 'active' : ''))
            a(href='/users/login') Login
-     
+
        ul.nav.navbar-nav.navbar-right
          li
-            a(href='/users/logout') logout     
+            a(href='/users/logout') logout
     .container
       != messages()
       block content
+
+script(src='loader.js')
