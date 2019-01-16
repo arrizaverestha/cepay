@@ -1,0 +1,29 @@
+[{
+    "group": "Super Admin",
+    "permissions": [{
+        "resource": "*",
+        "methods": "*",
+        "action": "allow"
+    }]
+}, {
+    "group": "Sales",
+    "permissions": [{
+        "resource": "Group",
+        "methods": "*",
+        "action": "deny"
+    }]
+}, {
+    "group": "User",
+    "permissions": [{
+        "resource": "Group",
+        "methods": "*",
+        "action": "deny"
+    }]
+}, {
+    "group": "",
+    "permissions": [{
+        "resource": "Group",
+        "methods": "*",
+        "action": "allow"
+    }]
+}]

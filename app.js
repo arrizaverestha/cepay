@@ -5,6 +5,7 @@ var cookieParser = require('cookie-parser');
 var bodyParser = require ('body-parser')
 var logger = require('morgan');
 var session = require('express-session');
+var acl = require('express-acl');
 var expressValidator = require ('express-validator');
 var passport = require('passport');
 var LocalStrategy= require('passport-local').Strategy;
@@ -14,12 +15,26 @@ var flash = require ('connect-flash');
 var bcrypt = require ('bcryptjs');
 var mongo = require ('mongodb');
 var mongoose = require ('mongoose');
+global.uuidv1 = require('uuid/v1');
 var db = mongoose.connection;
 
 var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
+var groupsRouter = require('./routes/group');
+var categoryRouter = require('./routes/category');
+var productRouter = require('./routes/product');
+var orderRouter = require('./routes/order');
+var saldoRouter = require('./routes/saldo');
 
 var app = express();
+
+global.isAuthenticate = function(req, res, next) {
+  // console.log(req.user);
+    if ((req.session && req.user) || req.path == "/users/login") {
+        return next();
+    }
+    res.redirect("/users/login");
+}
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
@@ -104,6 +119,27 @@ app.use(function (req, res, next) {
 
 app.use('/', indexRouter);
 app.use('/users', usersRouter);
+app.use('/groups', groupsRouter);
+app.use('/category', categoryRouter);
+app.use('/product', productRouter);
+app.use('/order', orderRouter);
+app.use('/saldo', saldoRouter);
+
+app.use(isAuthenticate);
+
+let configObject = {
+    filename: 'nacl.json',
+    searchPath: 'session.user.title'
+};
+
+let responseObject = {
+    status: 'Access Denied',
+    message: 'You are not authorized to access this resource'
+};
+acl.config(configObject, responseObject);
+app.use(acl.authorize.unless({
+    path: ['/users/login', '/users', '/users/logout', '/error404']
+}));
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
