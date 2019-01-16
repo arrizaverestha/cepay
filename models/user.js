@@ -1,5 +1,5 @@
 var mongoose = require('mongoose');
-var bcrypt = require ('bcryptjs'); 
+var bcrypt = require ('bcryptjs');
 
 mongoose.connect('mongodb://localhost/tutorial');
 
@@ -12,17 +12,20 @@ var UserSchema= mongoose.Schema({
     },
     password:{
         type: String,
-       
+
     },
     email:{
         type: String,
-       
+
     },
     name:{
         type: String,
     },
     profileimage:{
         type: String,
+    },
+    groupid:{
+      type: String,
     }
 });
 
