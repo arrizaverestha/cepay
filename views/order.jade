@@ -1,0 +1,25 @@
+extends layout
+
+block content
+    h2.page-header Add Transaction
+    if errors
+        each error, i in errors
+            div.alert.alert-danger #{error.msg}
+    script(src='/js/order.js')
+    form(method='post', action='/order/add')
+      if datas
+      -var index = 0
+      - each prd, i in datas.length ? datas : ['There are no values']
+        input(type='hidden', id="id-#{index}" name='id', value='#{prd.id}')
+        input(type='text', id="name-#{index}" name='name', value='#{prd.name}')
+        input(type='text', id="price-#{index}" name='price', value='#{prd.normal_price}')
+        input(type='button', id="tambah-#{index}" name='tambah', onclick='add(this.id)', value='+')
+        input(type='text', id="qty-#{index}" name='qty', value=0)
+        input(type='button', id="kurang-#{index}" name='kurang', onclick='del(this.id)', value='-')
+        br
+        - index++;
+        - if (i){
+        input(type='hidden', id="tr_d_counterEstimasiDetail" name='tr_d_counterEstimasiDetail', value='#{index}')
+        input(type='text', id="total" name='total')
+        input.btn.btn-primary(type='submit', name='submit', value='bayar')
+        -}

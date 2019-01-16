@@ -1,0 +1,29 @@
+extends layout
+
+block content
+    h2.page-header Add Product
+    if errors
+        each error, i in errors
+            div.alert.alert-danger #{error.msg}
+    form(method='post', action='/product/add')
+        .form-group
+        label Name
+        input.form-control(name='name',type="text",placeholder='Enter Name')
+        .form-group
+        label Description
+        input.form-control(name='description',type="textarea",placeholder='Enter Description')
+        .form-group
+        label CategoryId
+        select(class="selectpicker form-control" id="categoryid" name='categoryid')
+          option(value=0) ---Pilih Category---
+            if datas
+            each ctg, i in datas.length ? datas : ['There are no values']
+                option(value='#{ctg.id}') #{ctg.name}
+
+        .form-group
+        label Specific Price
+        input.form-control(name='specific_price',type="number",placeholder='Enter Specific Price')
+        .form-group
+        label Normal Price
+        input.form-control(name='normal_price',type="number",placeholder='Enter Normal Price')
+        input.btn.btn-primary(type='submit', name='submit', value='add')

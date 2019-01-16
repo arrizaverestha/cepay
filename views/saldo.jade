@@ -1,0 +1,12 @@
+extends layout
+
+block content
+    h2.page-header Top Up Saldo
+    if errors
+        each error, i in errors
+            div.alert.alert-danger #{error.msg}
+    form(method='post', action='/saldo/add')
+        .form-group
+        label Jumlah
+        input.form-control(name='jml',type="number",placeholder='Enter Jumlah Saldo')
+        input.btn.btn-primary(type='submit', name='submit', value='add')

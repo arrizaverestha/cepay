@@ -25,4 +25,11 @@ block content
         .form-group
         label ProfileImage
         input.form-control(name='profileimage',type="file")
+        .form-group
+        label groupId
+        select(class="selectpicker form-control" id="groupId" name='groupid')
+          option(value=0) ---Pilih Group---
+            if datas
+            each grp, i in datas.length ? datas : ['There are no values']
+                option(value='#{grp.id}') #{grp.title}
         input.btn.btn-primary(type='submit', name='submit', value='register')
